@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CategorieController!{% endblock %}
+
+{% block body %}
+<h1>Lite des categorie</h1>
+<ul>
+{% for  cat in categorie %}
+    <li>{{cat.libelle}}</li>
+{% endfor %}
+   </ul> 
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}List of orders{% endblock %}
+
+{% block body %}
+    <h1>List of orders</h1>
+
+    <a href="{{ path('commande_new') }}">Create a new order</a>
+    <br><br>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>État</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for commande in commandes %}
+                <tr>
+                    <td>{{ commande.id }}</td>
+                    <td>{{ commande.etat }}</td>
+                    <td>{{ commande.date ? commande.date|date('Y-m-d') : '' }}</td>
+                    <td>
+                        <a href="{{ path('commande_show', {'id': commande.id}) }}">
+                        <button type="button" class="btn btn-primary">Details</button></a>
+                    </td>
+                    <td>
+                        <a href="{{ path('commande_edit', {'id': commande.id}) }}">
+                        <button type="button" class="btn btn-warning">Edit</button</a>
+                    </td>
+                    <td>
+                        <form method="post" action="{{ path('commande_delete', {'id': commande.id}) }}" style="display:inline-block">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ commande.id) }}">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

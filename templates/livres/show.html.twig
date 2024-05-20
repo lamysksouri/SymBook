@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}nos livre!{% endblock %}
+
+{% block body %}
+<h1>detail du livre{{livre.titre}} </h1>
+<img src="{{livre.image}}" alt="">
+<h4>prix :{{livre.prix}}</h4>
+    <h4>prix :{{livre.editeur}}</h4>
+    <h4>date :{{livre.dateEdition|date('d-m-y')}}</h4>
+    
+{% endblock %}

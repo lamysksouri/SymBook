@@ -1,0 +1,42 @@
+{# templates/dashbord/index.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block body %}
+    <h1>Dashboard</h1>
+
+    {{ form_start(form) }}
+        {{ form_row(form.start_date) }}
+        {{ form_row(form.end_date) }}
+        {{ form_row(form.submit) }}
+    {{ form_end(form) }}
+
+    <canvas id="ordersChart" width="800" height="400"></canvas>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <script>
+        var ctx = document.getElementById('ordersChart').getContext('2d');
+        var ordersChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [{% for order in orders %}"{{ order.date|date('d/m/Y') }}",{% endfor %}],
+  datasets: [{
+    label: 'les id',
+    data: [{% for order in orders %}{{ loop.index0 > 0 ? ',' : '' }}{{ order.id }}{% endfor %}], // Using order IDs
+    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+    borderColor: 'rgba(54, 162, 235, 1)',
+    borderWidth: 1
+}]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+{% endblock %}

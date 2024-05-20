@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PanigerController!{% endblock %}
+
+{% block body %}
+<div class="bg-light p-3">
+<h3>Your Cart</h3>
+</div>
+{% if items| length >0 %}
+<table class="table">
+<thead>
+    <tr>
+        <th>Book</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Total</th>
+        <th></th>
+    </tr>
+</thead>
+<tbody>
+{% for item in items %}
+<tr>
+     <td>{{ item.livre.titre }}</td>
+    <td>{{ item.livre.prix }}</td>
+    <td>
+        <a href="{{ path('app_paniger_decrement', { 'id': item.livre.id }) }}" class="btn btn-warning btn-sm">-</a>
+        {{ item.quantite }}
+        <a href="{{ path('app_paniger_increment', { 'id': item.livre.id }) }}" class="btn btn-success btn-sm">+</a>
+    </td>
+    <td>{{ item.livre.prix * item.quantite }}</td>
+    <td>
+        <a href="{{ path('app_paniger_remove', { 'id': item.livre.id }) }}" class="btn btn-danger btn-sm">
+        <i class="fas fa-trash"></i></a>
+    </td>
+</tr>
+</tr>
+    
+{% endfor %}
+</tbody>
+<tfoot>
+<tr>
+    <td colspan="3" class="text-end">total:</td>
+    <td>{{total}}</td>
+    <td></td>
+</tr>
+</tfoot>
+</table>
+<a href="{{ path('app_panigner_checkout')}}" class="btn btn-success btm-sm">Place your order</a>
+{% else %}
+<br><br><br>
+<h1><center>You placed your order ! Please wait for the confirmation</center></h1>
+<br>
+<h1><center><p>If you wish you can go back and order more books</p></center></h1>
+{% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Checkout{% endblock %}
+
+{% block body %}
+<div class="bg-light p-3">
+    <h1>Placing an order</h1>
+</div>
+
+{{ form_start(form) }}
+    {{ form_row(form.firstName) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.address) }}
+{{ form_end(form) }}
+<button type="submit" class="btn btn-success">Place your order</button>
+{% endblock %}

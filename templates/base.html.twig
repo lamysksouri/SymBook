@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+    <link rel="stylesheet" href="{{ asset('bootstrap.css') }}">
+    {% block stylesheets %}
+    <style>
+        .bg-custom-primary {
+            background-color: #805341; 
+        }
+        .bg-custom-secondary {
+            background-color: #4A4A4A; 
+        }
+        .text-custom-light {
+            color: #FFD700; 
+        }
+        .text-custom-dark {
+            color: #31231B; 
+        }
+        .navbar-right {
+            margin-left: auto;
+        }
+    </style>
+    {% endblock %}
+</head>
+<body>
+<nav class="navbar navbar-expand-lg bg-custom-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand text-custom-light" href="/profile/livres">Home</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <div class="navbar-right">
+                <ul class="navbar-nav">
+                    {% if app.user %}
+                        {% if 'ROLE_USER' in app.user.roles and 'ROLE_ADMIN' not in app.user.roles %}
+                            <li class="nav-item">
+                                <a class="nav-link active text-custom-light" href="{{ path('commande_historique') }}">Order History</a>
+                            </li>
+                        {% endif %}
+                        {% if 'ROLE_ADMIN' in app.user.roles %}
+                            <li class="nav-item">
+                                <a class="nav-link active text-custom-light" href="{{ path('app_dashbord') }}">Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active text-custom-light" href="{{ path('commande_index') }}">Manage orders</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active text-custom-light" href="{{ path('app_user_index') }}">Manage Users</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active text-custom-light" href="{{ path('app_admin_livres') }}">Manage Books</a>
+                            </li>
+                        {% endif %}
+                        
+                        <li class="nav-item">
+                            <a class="nav-link active text-custom-light" href="{{ url('app_logout') }}">Logout</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link text-custom-light" href="{{ url('app_register') }}">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active text-custom-light" href="{{ url('app_login') }}">Login</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="container mt-3">
+    {% block body %}{% endblock %}
+</div>
+</body>
+</html>

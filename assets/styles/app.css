@@ -1,0 +1,9 @@
+body {
+    background-color: rgb(238, 214, 173);
+}
+/* styles.css */
+
+.book-image {
+    max-width: 150px; /* Définissez la largeur maximale souhaitée pour les images */
+    height: auto; /* Assurez-vous que la hauteur est ajustée proportionnellement à la largeur */
+}

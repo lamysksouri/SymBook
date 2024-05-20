@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Our books!{% endblock %}
+
+{% block body %}
+<h1>List of the books </h1>
+<table class="table">
+<table class="table">
+    <tr>
+        <th>titre</th>
+        <th>ISBN</th>
+        <th>editeur</th>
+        <th>date edition</th>
+        <th>prix</th>
+        <th>catégorie</th>
+        <th colspan="3">Action</th>
+        
+    </tr>
+    {% for livre in livres %}
+    <tr>
+        <td>{{livre.titre}}</td>
+        <td>{{livre.isbn}}</td>
+        <td>{{livre.editeur}}</td>
+        <td>{{livre.dateEdition| date('d-m-Y')}}</td>
+        <td>{{livre.prix}}</td>
+        <td>{{livre.categorie.libelle}}</td>
+        <td><a href="{{url('app_admin_livres_show',{'id':livre.id})}}" class="btn btn-primary btm-sm">voir plus .......</a></td>
+        <td><a href="{{url('app_admin_livres_delete',{'id':livre.id})}}" class="btn btn-danger btm-sm">supprimer</a></td>
+        <td><a href="{{url('app_admin_livres_update',{'id':livre.id})}}" class="btn btn-sucss btm-sm">editer</a></td>
+    </tr>
+        
+    {% endfor %}
+</table>
+{% endblock %}

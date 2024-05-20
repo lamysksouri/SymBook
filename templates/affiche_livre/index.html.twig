@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}List of the books{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+ .search-form {
+    margin-bottom: 20px;
+}
+
+.search-form .input-group {
+    display: flex;
+    align-items: center;
+}
+
+.search-form .input-group input[type="text"] {
+    border-radius: 5px;
+}
+
+.search-form .input-group button {
+    border-radius: 5px;
+}
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+        }
+
+        .card-text {
+            font-size: 1rem;
+            color: #6c757d;
+        }
+
+        .prix {
+            font-size: 1.1rem;
+        }
+
+        .cart-icon {
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+        }
+      
+    </style>
+{% endblock %}
+{% block body %}
+
+<div class="container mt-5">
+    <h1 class="mb-4">List of the books</h1>
+   <form action="{{ path('app_profile_livres_search') }}" method="GET" class="search-form">
+    <div class="input-group input-group-sm">
+        <input type="text" name="query" class="form-control" placeholder="Search...">
+        <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+</form>
+</form>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for livre in livres %}
+        <div class="col">
+            <div class="card h-100">
+                <img src="https://www.edition-originale.com/media/livres_anciens.jpg" class="card-img-top" alt="Image de livre">
+                <div class="card-body">
+                    <h3 class="card-title">{{ livre.titre }}</h3>
+                    <p class="card-text">Auteur: {{ livre.auteur }}</p>
+                    <h4 class="card-text">Prix: <span class="prix">{{ livre.prix }} €</span></h4>
+                    {% if livre.qte > 0 %}
+                    <p class="card-text text-success">En stock</p>
+                    {% elseif livre.qte > 10 %}
+                    <p class="card-text text-warning">Quantité limitée</p>
+                    {% else %}
+                    <p class="card-text text-danger">Rupture de stock</p>
+                    {% endif %}
+                </div>
+                <div class="card-footer">
+                    <a href="{{ path('livre_details', { 'id': livre.id }) }}" class="btn btn-primary btn-animated">Details</a>
+                    <a href="{{ path('app_paniger_add', { 'id': livre.id }) }}"><img src="https://www.kalys-designstore.com/wp-content/uploads/2018/07/K135-2.jpg" alt="Ajouter au panier" class="cart-icon ml-2"></a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <!-- Pagination -->
+    <div class="mt-5">
+        <nav aria-label="Pagination">
+            <ul class="pagination">
+                {% for page in 1..totalPages %}
+                    <li class="page-item {% if currentPage == page %}active{% endif %}">
+                        <a class="page-link" href="{{ path('app_admin_livres_client', { 'page': page }) }}">{{ page }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </nav>
+    </div>
+</div>
+{% endblock %}

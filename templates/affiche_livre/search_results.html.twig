@@ -1,0 +1,19 @@
+{# Inside search_results.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Search Results{% endblock %}
+
+{% block body %}
+    <h1>Search Results</h1>
+
+    {% if livres is empty %}
+        <p>No results found.</p>
+    {% else %}
+        <ul>
+            {% for livre in livres %}
+                
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}

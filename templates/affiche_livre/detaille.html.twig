@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Details of the books - {{ livre.titre }}{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="{{ livre.image }}" class="img-fluid" alt="Image de livre">
+        </div>
+        <div class="col-md-6">
+            <h1>{{ livre.titre }}</h1>
+            <h4 class="text-muted">{{ livre.auteur }}</h4>
+            <p class="lead">{{ livre.resume }}</p>
+            <ul class="list-unstyled">
+                <li><strong>ISBN:</strong> {{ livre.isbn }}</li>
+                <li><strong>Date d'édition:</strong> {{ livre.dateEdition|date('d-m-Y') }}</li>
+                <li><strong>Prix:</strong> {{ livre.prix }} €</li>
+                <li><strong>Stock:</strong> {% if livre.qte > 0 %} En stock {% else %} Rupture de stock {% endif %}</li>
+            </ul>
+            <a href="/checkout" class="btn btn-success">Acheter</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

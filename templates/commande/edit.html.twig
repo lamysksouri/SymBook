@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit the order{% endblock %}
+
+{% block body %}
+    <h1>Edit the order</h1>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="button" class="btn btn-success">Save changes</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('commande_index') }}">Go back to the list</a>
+{% endblock %}
